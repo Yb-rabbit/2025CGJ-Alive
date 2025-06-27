@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Hit_Mouse_N : MonoBehaviour
 {
@@ -7,17 +8,27 @@ public class Hit_Mouse_N : MonoBehaviour
     public GameObject badMolePrefab;   // 坏地鼠预制体
     public Transform[] spawnPoints;    // 地鼠出现的位置
     public float showTime = 1.0f;      // 地鼠出现的时间
-    public float interval = 0.5f;      // 地鼠消失后的间隔
-    public UnityEngine.UI.Text scoreText; // 显示分数的UI
+    public Text scoreText;             // 显示分数的UI
 
     public float scores = 0;           // 当前分数
-    private GameObject currentMole;
+    private List<GameObject> moles = new List<GameObject>();
+    private float interval = 1.2f;     // 初始地鼠消失后的间隔
 
     void Start()
     {
         scores = 0;
         UpdateScore();
-        Invoke("ShowMole", interval);
+        interval = GetInterval();
+        InvokeRepeating("TryShowMole", interval, interval);
+    }
+
+    void TryShowMole()//地鼠生成器
+    {
+        int maxMole = GetMaxMoleCount();
+        if (moles.Count < maxMole)
+        {
+            ShowMole();
+        }
     }
 
     void ShowMole()
@@ -25,35 +36,63 @@ public class Hit_Mouse_N : MonoBehaviour
         int index = Random.Range(0, spawnPoints.Length);
         bool isGood = Random.value > 0.5f;
         GameObject prefab = isGood ? goodMolePrefab : badMolePrefab;
-        currentMole = Instantiate(prefab, spawnPoints[index].position, Quaternion.identity);
-        currentMole.GetComponent<Mole>().Init(this, isGood);
-        Invoke("HideMole", showTime);
+        GameObject mole = Instantiate(prefab, spawnPoints[index].position, Quaternion.identity);
+        mole.GetComponent<Mole>().Init(this, isGood);
+        moles.Add(mole);
+        StartCoroutine(HideMoleAfterTime(mole, showTime));
     }
 
-    void HideMole()
+    System.Collections.IEnumerator HideMoleAfterTime(GameObject mole, float delay)
     {
-        if (currentMole != null)
+        yield return new WaitForSeconds(delay);
+        if (mole != null)
         {
-            Destroy(currentMole);
+            Mole moleScript = mole.GetComponent<Mole>();
+            if (moleScript != null)
+                moleScript.Timeout();
         }
-        Invoke("ShowMole", interval);
     }
 
     public void scores_add(float score)
     {
         scores += score;
         UpdateScore();
-        if (currentMole != null)
+
+        // 动态调整生成间隔
+        float newInterval = GetInterval();
+        if (Mathf.Abs(newInterval - interval) > 0.01f)
         {
-            Destroy(currentMole);
+            interval = newInterval;
+            CancelInvoke("TryShowMole");
+            InvokeRepeating("TryShowMole", interval, interval);
         }
-        CancelInvoke("HideMole");
-        Invoke("ShowMole", interval);
     }
 
     void UpdateScore()
     {
         if (scoreText != null)
             scoreText.text = "分数: " + scores;
+    }
+
+    public void RemoveMole(GameObject mole)
+    {
+        moles.Remove(mole);
+    }
+
+    // 根据分数动态调整最大地鼠数
+    int GetMaxMoleCount()
+    {
+        if (scores < 100) return 1;      // 分数低时只出现1只
+        if (scores < 200) return 2;      // 分数中等时最多2只
+        return 3;                       // 分数高时最多3只
+    }
+
+    // 根据分数动态调整生成间隔
+    float GetInterval()
+    {
+        if (scores < -50) return 2f;
+        if (scores < 100) return 1.2f;
+        if (scores < 200) return 0.8f;
+        return 0.5f;
     }
 }
