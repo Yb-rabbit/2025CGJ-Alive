@@ -3,11 +3,12 @@ using UnityEngine.UI;
 
 public class Hit_Mouse_N : MonoBehaviour
 {
-    public GameObject molePrefab;      // 地鼠预制体
+    public GameObject goodMolePrefab;  // 好地鼠预制体
+    public GameObject badMolePrefab;   // 坏地鼠预制体
     public Transform[] spawnPoints;    // 地鼠出现的位置
     public float showTime = 1.0f;      // 地鼠出现的时间
     public float interval = 0.5f;      // 地鼠消失后的间隔
-    public Text scoreText;             // 显示分数的UI
+    public UnityEngine.UI.Text scoreText; // 显示分数的UI
 
     public float scores = 0;           // 当前分数
     private GameObject currentMole;
@@ -22,12 +23,10 @@ public class Hit_Mouse_N : MonoBehaviour
     void ShowMole()
     {
         int index = Random.Range(0, spawnPoints.Length);
-        currentMole = Instantiate(molePrefab, spawnPoints[index].position, Quaternion.identity);
-
-        // 随机生成好/坏地鼠
         bool isGood = Random.value > 0.5f;
+        GameObject prefab = isGood ? goodMolePrefab : badMolePrefab;
+        currentMole = Instantiate(prefab, spawnPoints[index].position, Quaternion.identity);
         currentMole.GetComponent<Mole>().Init(this, isGood);
-
         Invoke("HideMole", showTime);
     }
 
@@ -40,7 +39,6 @@ public class Hit_Mouse_N : MonoBehaviour
         Invoke("ShowMole", interval);
     }
 
-    // 被Mole调用，分数变化
     public void scores_add(float score)
     {
         scores += score;

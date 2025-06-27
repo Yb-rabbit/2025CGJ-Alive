@@ -16,9 +16,9 @@ public class Mole : MonoBehaviour
         if (gameManager != null)
         {
             if (isGood)
-                gameManager.scores_add(10); // 打好地鼠加10分
+                gameManager.scores_add(-5); // 打好地鼠扣5分
             else
-                gameManager.scores_add(-5); // 打坏地鼠扣5分
+                gameManager.scores_add(10); // 打坏地鼠加10分
 
             Destroy(gameObject); // 打中后消失
         }
