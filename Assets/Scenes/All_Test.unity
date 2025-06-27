@@ -403,8 +403,7 @@ MonoBehaviour:
   - {fileID: 979186638}
   - {fileID: 281052814}
   - {fileID: 1043591185}
-  showTime: 1.4
-  interval: 0.8
+  showTime: 1.5
   scoreText: {fileID: 810457180}
   scores: 0
 --- !u!1 &683301066
