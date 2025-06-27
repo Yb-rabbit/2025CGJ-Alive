@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/All_Test.unity
     guid: a0eacbd3c75f1194cbe40c09ccebf811
+  - enabled: 1
+    path: Assets/Scenes/Button.unity
+    guid: 5836f95d40a724642913875b997a63ce
   m_configObjects: {}
