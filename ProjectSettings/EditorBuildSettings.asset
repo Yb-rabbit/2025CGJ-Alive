@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/All_Test.unity
     guid: a0eacbd3c75f1194cbe40c09ccebf811
+  - enabled: 1
+    path: Assets/Scenes/LoveCat/SE_HAT.unity
+    guid: 47957d58dd385314daf16ebfcf6f5b4f
+  - enabled: 1
+    path: Assets/Scenes/LoveCat/SE_KAI.unity
+    guid: 2f27adf52f882c1448eceef69dc937ea
+  - enabled: 1
+    path: Assets/Scenes/LoveCat/SE_HA.unity
+    guid: e27538f339388454b9c627257299c3ed
   m_configObjects: {}
