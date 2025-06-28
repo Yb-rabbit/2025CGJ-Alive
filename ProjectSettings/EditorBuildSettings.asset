@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoveCat/SE_HA.unity
     guid: e27538f339388454b9c627257299c3ed
+  - enabled: 1
+    path: Assets/Scenes/LoveCat/PreEND.unity
+    guid: a4cd939227f8c6e4d857d8298862083c
+  - enabled: 1
+    path: Assets/Scenes/END.unity
+    guid: 277466732645b394fa32070d1141166b
   m_configObjects: {}
