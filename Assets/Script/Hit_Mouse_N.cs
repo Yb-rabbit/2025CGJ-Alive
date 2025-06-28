@@ -10,6 +10,9 @@ public class Hit_Mouse_N : MonoBehaviour
     public float showTime = 1.0f;      // 地鼠出现的时间
     public Text scoreText;             // 显示分数的UI
 
+    public AudioClip addScoreClip;     // 加分音效
+    private AudioSource audioSource;
+
     public float scores = 0;           // 当前分数
     private List<GameObject> moles = new List<GameObject>();
     private float interval = 1.2f;     // 初始地鼠消失后的间隔
@@ -20,6 +23,12 @@ public class Hit_Mouse_N : MonoBehaviour
         UpdateScore();
         interval = GetInterval();
         InvokeRepeating("TryShowMole", interval, interval);
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     void TryShowMole()//地鼠生成器
@@ -55,6 +64,12 @@ public class Hit_Mouse_N : MonoBehaviour
 
     public void scores_add(float score)
     {
+        // 只有加分时播放音效
+        if (score > 0 && addScoreClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(addScoreClip);
+        }
+
         scores += score;
         UpdateScore();
 

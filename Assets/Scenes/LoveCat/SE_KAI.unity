@@ -894,6 +894,7 @@ MonoBehaviour:
   - {fileID: 775493122}
   showTime: 1
   scoreText: {fileID: 810457180}
+  addScoreClip: {fileID: 8300000, guid: 53e8f5a8dc891914cbf65aa6865a3512, type: 3}
   scores: 0
 --- !u!1 &487382825
 GameObject:

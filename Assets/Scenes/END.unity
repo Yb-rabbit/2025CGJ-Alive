@@ -1545,6 +1545,7 @@ MonoBehaviour:
   - {fileID: 508951835}
   showTime: 1.5
   scoreText: {fileID: 82423651}
+  addScoreClip: {fileID: 8300000, guid: 53e8f5a8dc891914cbf65aa6865a3512, type: 3}
   scores: 0
 --- !u!4 &999193015
 Transform:
