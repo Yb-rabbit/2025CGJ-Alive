@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: b0a1a45461e65874b94ce35479b11bad
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Grass_pe1jvwp0_NormalBent: {fileID: 2800000, guid: 8b12643a55238cf47b6ea4c03010aad4, type: 3}
+  - _Grass_pe1jvwp0_Albedo: {fileID: 2800000, guid: eca78d463500596448e639fc2775c91d, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
